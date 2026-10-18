@@ -1,6 +1,6 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Muskingum Valley League Championship results — RunningResult</title>
-<meta name="description" content="Muskingum Valley League Championship results from Ohio cross country, powered by RunSignup. Runner cards by RunningResult.">
+<meta name="description" content="Muskingum Valley League Championship results from Ohio cross country, with runner cards by RunningResult.">
 <meta name="theme-color" content="#0a0a0a">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Running Result"><meta property="og:title" content="Muskingum Valley League Championship results — RunningResult"><meta property="og:description" content="Every meet. Every split. Every athlete. Live Ohio results in one place."><meta property="og:image" content="https://runningresult.com/og-image.svg"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="../../assets/favicon.svg">
@@ -326,43 +326,63 @@ table.xr{width:100%;border-collapse:collapse;font-size:15px}
 .xmeta .xpre{color:#e9d9a8}
 .xstk{position:sticky;top:0;z-index:5;background:#0a0a0a;margin:0 -14px;padding:2px 14px 4px;border-bottom:1px solid #1d1d1b}
 .xstk .xtabs{margin:4px 0}.xstk .xtools{margin:4px 0}
+
+.xoff{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.xoff a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:9px;font:600 13.5px Inter,sans-serif;text-decoration:none;color:#fff;border:1px solid #d00000}
+.xoff a.pri{background:#d00000}.xoff a.pri:hover{background:#f01414}.xoff a.sec{background:transparent}
+.xrl{font-size:12.5px;color:var(--mut);margin:8px 0 0}.xrl a{color:#fff}
+.xtl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}.xtl span{font-size:12.5px;background:#141414;border:1px solid #2a2a2a;border-radius:999px;padding:4px 10px;color:#ddd}
+#cr{color:var(--mut)}#cr a{color:#fff}
+.xsheet{visibility:hidden;transition:transform .22s,visibility 0s .22s}.xsheet.on{visibility:visible;transition:transform .22s}
 </style></head><body>
 <div class="top"><div class="hd"><a class="wm" href="https://runningresult.com/" aria-label="RunningResult home"><svg viewBox="0 0 22 18" aria-hidden="true"><rect y="0" width="22" height="4" rx="1" fill="#f5f5f5"/><rect y="7" width="22" height="4" rx="1" fill="#f5f5f5"/><rect y="14" width="22" height="4" rx="1" fill="#d00000"/></svg><span>Running<span class="th">Result</span></span></a><div class="brand"><i class="ld"></i>Live<span class="bl">&nbsp;Results</span></div><div class="pt"><span class="ptt">In partnership with</span><img src="../../assets/ohrh-logo.png" alt="Ohio Running Hub"></div></div></div>
 <div class="xrw"><a class="xbk" href="../../">← All meets</a>
 <h1>Muskingum Valley League Championship</h1>
-<div class="xmeta"><span>Sat Oct 17</span><span id="up"></span><a id="off" target="_blank" rel="noopener" href="https://runsignup.com/Race/Results/101676">Official results on RunSignup ↗</a></div>
+<div class="xmeta"><span>Sat Oct 17</span><span id="up"></span><span id="cr"></span></div>
+<div class="xoff" id="offs"></div><div class="xnote" id="stl" style="display:none">Showing the last results we loaded; the source is temporarily unreachable.</div>
 <div class="xstk"><div class="xtabs" id="rt" role="tablist"></div><div class="xsets" id="ss"></div>
 <div class="xtools"><input id="q" type="search" placeholder="Search runner or school…" aria-label="Search runner or school"><select id="tf" aria-label="Filter by team"></select></div></div>
 <div id="out"></div>
-<div class="xattr">Results powered by <a href="https://runsignup.com/Race/Results/101676" target="_blank" rel="noopener">RunSignup</a> and timed by <span id="timer">the race timer</span>. Official results are always on RunSignup. Runner cards are from the RunningResult database and cover only races we have on file; a card appears for runners we can confidently match.</div></div>
+<div class="xattr" id="at"></div></div>
 <div class="xov" id="ov"></div>
 <div class="xsheet" id="sh" role="dialog" aria-modal="true" aria-label="Runner card"><button class="x" id="cx" aria-label="Close">×</button><div id="cb"></div></div>
-<footer><div class="ft"><span class="h"><a href="https://runningresult.com/" target="_blank" rel="noopener">Running<span>Result</span></a></span><span class="n">Results powered by RunSignup · Runner cards by RunningResult</span><span class="tg">RunningResult · Every meet. Every split. Every athlete.</span></div></footer>
+<footer><div class="ft"><span class="h"><a href="https://runningresult.com/" target="_blank" rel="noopener">Running<span>Result</span></a></span><span class="n">Results from each meet's official timer or results site · Runner cards by RunningResult</span><span class="tg">RunningResult · Every meet. Every split. Every athlete.</span></div></footer>
 <script>
 const $=id=>document.getElementById(id);let D,CARDS=[],ei=0,si=0;
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 async function J(u){const r=await fetch(u+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;return r.json()}
 const ord=n=>n+(['th','st','nd','rd'][(n%100>10&&n%100<14)?0:Math.min(n%10,4)%4]||'th');
 function E(){return D.events[ei]}function S(){return E().sets[si]}
+const SRC=()=>D.src||'RunSignup';
 async function load(){
  const first=!D;D=await J('data.json');CARDS=D.cards;
  const u=new Date(D.updated);$('up').textContent='Updated '+u.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET';
- $('off').href=D.official_url;$('timer').textContent=D.timer||'the race timer';
+ const off=(D.official&&D.official.length)?D.official:[{label:'Official results',url:D.official_url}];
+ $('offs').innerHTML=off.map((o,i)=>`<a class="${i?'sec':'pri'}" target="_blank" rel="noopener" href="${esc(o.url)}">${i?esc(o.label):'Official results on '+esc(SRC())}${' ↗'}</a>`).join('');
+ $('cr').innerHTML='Results from <a target="_blank" rel="noopener" href="'+esc(D.official_url)+'">'+esc(SRC())+'</a>'+(D.timer&&D.timer!=SRC()?' · timed by '+esc(D.timer):'');
+ $('at').innerHTML='Results are copied from <a href="'+esc(D.official_url)+'" target="_blank" rel="noopener">'+esc(SRC())+'</a> and refresh every few minutes; the official results there are always the final word. Runner cards are from the RunningResult database and cover only races we have on file; a card appears for runners we can confidently match by name and team.';
+ $('stl').style.display=D.stale?'':'none';
  if(first||ei>=D.events.length){ei=Math.min(ei,D.events.length-1);si=0}
+ if(first){const f=D.events.findIndex(e=>!e.pending);if(f>0)ei=f}
  tabs();render()}
-function tabs(){$('rt').innerHTML=D.events.map((e,i)=>`<button role="tab" data-i="${i}" aria-selected="${i==ei}"><span>${esc(e.label)}</span><small>${e.sets.reduce((a,s)=>Math.max(a,s.rows.length),0)} runners</small></button>`).join('');
+function tabs(){$('rt').innerHTML=D.events.map((e,i)=>`<button role="tab" data-i="${i}" aria-selected="${i==ei}"><span>${esc(e.label)}</span><small>${e.pending?'not posted':e.sets.reduce((a,s)=>Math.max(a,s.rows.length),0)+' runners'}</small></button>`).join('');
  $('rt').style.display=D.events.length>1?'flex':'none'}
 $('rt').onclick=e=>{const b=e.target.closest('button');if(b){ei=+b.dataset.i;si=0;$('q').value='';tabs();render()}};
 $('ss').onclick=e=>{const b=e.target.closest('button');if(b){si=+b.dataset.i;render()}};
 function render(){
- const ev=E(),sets=ev.sets;if(si>=sets.length)si=0;const d=S();
+ const ev=E(),sets=ev.sets;if(si>=sets.length)si=0;
+ const rl=ev.u?`<div class="xrl">Official results for this race: <a href="${esc(ev.u)}" target="_blank" rel="noopener">${esc(SRC())} ↗</a></div>`:'';
+ if(!sets.length){$('ss').innerHTML='';$('tf').style.display='none';
+  $('out').innerHTML=rl+'<div class="xempty"><b>Results not posted yet.</b><br>'+(ev.start?'Scheduled '+esc(new Date(ev.start+(ev.start.length<=16?':00':'')).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}))+'. ':'')+'They appear here as soon as '+esc(SRC())+' publishes them.</div>'+(ev.tl&&ev.tl.length?'<div class="xsec">Teams entered</div><div class="xtl">'+ev.tl.map(t=>'<span>'+esc(t)+'</span>').join('')+'</div>':'');return}
+ const d=S();
  $('ss').innerHTML=sets.length>1?sets.map((s,i)=>`<button data-i="${i}" aria-selected="${i==si}">${esc(s.label||'Overall')}</button>`).join(''):'';
  const teams=[...new Set(d.rows.map(x=>x[2]).filter(Boolean))].sort();const tf=$('tf'),sel=tf.value;
  tf.style.display=teams.length?'':'none';
  tf.innerHTML='<option value="">All teams</option>'+teams.map(t=>`<option>${esc(t)}</option>`).join('');tf.value=teams.includes(sel)?sel:'';
  const q=$('q').value.trim().toLowerCase(),t=tf.value;
  const rows=d.rows.filter(x=>(!t||x[2]==t)&&(!q||(x[1]+' '+(x[2]||'')).toLowerCase().includes(q)));
- let h='';
+ let h=rl;
+ if(ev.live)h+='<div class="xnote">Race in progress or just finished — results are still coming in.</div>';
  if(d.prelim)h+='<div class="xnote">Preliminary results from the timer.</div>';
  if(!q&&!t&&d.teams.length){h+='<div class="xsec">Team scores</div><table class="xtsc">'+d.teams.map(x=>`<tr><td>${esc(x[0])}</td><td>${esc(x[1])}</td><td>${/^\d+$/.test(x[2]||'')?esc(x[2])+' pts':esc(x[2]||'')}</td></tr>`).join('')+'</table>'}
  h+='<div class="xsec">Individual results'+(d.prelim?' · preliminary':'')+'</div>';

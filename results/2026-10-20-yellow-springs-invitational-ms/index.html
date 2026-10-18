@@ -326,6 +326,14 @@ table.xr{width:100%;border-collapse:collapse;font-size:15px}
 .xmeta .xpre{color:#e9d9a8}
 .xstk{position:sticky;top:0;z-index:5;background:#0a0a0a;margin:0 -14px;padding:2px 14px 4px;border-bottom:1px solid #1d1d1b}
 .xstk .xtabs{margin:4px 0}.xstk .xtools{margin:4px 0}
+
+.xoff{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.xoff a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:9px;font:600 13.5px Inter,sans-serif;text-decoration:none;color:#fff;border:1px solid #d00000}
+.xoff a.pri{background:#d00000}.xoff a.pri:hover{background:#f01414}.xoff a.sec{background:transparent}
+.xrl{font-size:12.5px;color:var(--mut);margin:8px 0 0}.xrl a{color:#fff}
+.xtl{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 12px}.xtl span{font-size:12.5px;background:#141414;border:1px solid #2a2a2a;border-radius:999px;padding:4px 10px;color:#ddd}
+#cr{color:var(--mut)}#cr a{color:#fff}
+.xsheet{visibility:hidden;transition:transform .22s,visibility 0s .22s}.xsheet.on{visibility:visible;transition:transform .22s}
 .ctm{border:1px solid #2b2b28;border-radius:10px;background:var(--card);margin:5px 0;overflow:hidden}
 .cth{width:100%;min-height:44px;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 12px;background:transparent;border:0;color:#fff;font:14.5px Inter,sans-serif;cursor:pointer;text-align:left}
 .cth small{color:var(--mut);font-size:12px;white-space:nowrap}
@@ -345,10 +353,10 @@ table.xr{width:100%;border-collapse:collapse;font-size:15px}
 <div class="xstk"><div class="xtabs" id="rt" role="tablist"></div>
 <div class="xtools"><input id="q" type="search" placeholder="Search runner or school…" aria-label="Search runner or school"><select id="tf" aria-label="Filter by team"></select></div></div>
 <div id="out"></div>
-<div class="xattr">This page lists the teams in each race and their runners from the RunningResult database: athletes with a result this season for the team, not the meet's entry list, so a runner can be missing or listed without racing here. It does not show this meet's places or times; those are on the official results pages above.</div></div>
+<div class="xattr">This page lists the teams in each race and their runners from the RunningResult database: athletes with a result this season for the team, not the meet's entry list, so a runner can be missing or listed without racing here. Results will show here once they are posted; the official results pages above are always the final word.</div></div>
 <div class="xov" id="ov"></div>
 <div class="xsheet" id="sh" role="dialog" aria-modal="true" aria-label="Runner card"><button class="x" id="cx" aria-label="Close">×</button><div id="cb"></div></div>
-<footer><div class="ft"><span class="h"><a href="https://runningresult.com/" target="_blank" rel="noopener">Running<span>Result</span></a></span><span class="n">Teams and runner cards by RunningResult</span><span class="tg">RunningResult · Every meet. Every split. Every athlete.</span></div></footer>
+<footer><div class="ft"><span class="h"><a href="https://runningresult.com/" target="_blank" rel="noopener">Running<span>Result</span></a></span><span class="n">Results from each meet's official timer or results site · Runner cards by RunningResult</span><span class="tg">RunningResult · Every meet. Every split. Every athlete.</span></div></footer>
 <script>
 const $=id=>document.getElementById(id);let D,CARDS=[],ri=0,OPEN=new Set();
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -358,7 +366,7 @@ function kinds(){return D.kinds.length?D.kinds.join('/'):'the official timer'}
 async function load(){
  D=await J('data.json');CARDS=D.cards;if(ri>=D.races.length)ri=0;
  const u=new Date(D.updated);$('up').textContent='Updated '+u.toLocaleTimeString('en-US',{timeZone:'America/New_York',hour:'numeric',minute:'2-digit'})+' ET · Stats through '+D.through;
- $('bn').innerHTML=`<div><b>Official results are on ${esc(kinds())}</b> — this page shows teams and runner cards from the Running Result database.</div><div class="bl">`+D.official.map((o,i)=>`<a class="${i?'sec':'pri'}" target="_blank" rel="noopener" href="${esc(o.url)}">${i?'':'Official results · '}${esc(o.label)} ↗</a>`).join('')+'</div>';
+ $('bn').innerHTML=`<div><b>Results not posted yet.</b> Individual results appear on this page as soon as ${esc(kinds())} publishes them. Until then, here are the teams and runner cards from the Running Result database; the official page is linked below.</div><div class="bl">`+D.official.map((o,i)=>`<a class="${i?'sec':'pri'}" target="_blank" rel="noopener" href="${esc(o.url)}">${i?'':'Official results · '}${esc(o.label)} ↗</a>`).join('')+'</div>';
  tabs();render()}
 function tabs(){$('rt').innerHTML=D.races.map((r,i)=>`<button role="tab" data-i="${i}" aria-selected="${i==ri}"><span>${esc(r.label.replace(/ · .*$/,''))}</span><small>${r.t.length} team${r.t.length==1?'':'s'}</small></button>`).join('');$('rt').style.display=D.races.length>1?'flex':'none'}
 $('rt').onclick=e=>{const b=e.target.closest('button');if(b){ri=+b.dataset.i;OPEN.clear();$('q').value='';$('tf').value='';tabs();render()}};
