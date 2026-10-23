@@ -331,14 +331,14 @@ h2{font:700 12px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:
 .ipb .shr{display:inline-block;width:14px;height:14px;vertical-align:-2px}
 body.ipbon #top{bottom:84px}
 @media all and (display-mode:standalone){.ipb{display:none!important}}
-</style></head><body>
+.ctl{flex-wrap:nowrap}.ctl .cnt2{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.ctl .cb{flex:none;white-space:nowrap}</style></head><body>
 <div class="top"><div class="hd"><a class="wm" href="https://runningresult.com/" aria-label="RunningResult home"><svg viewBox="0 0 22 18" aria-hidden="true"><rect y="0" width="22" height="4" rx="1" fill="#f5f5f5"/><rect y="7" width="22" height="4" rx="1" fill="#f5f5f5"/><rect y="14" width="22" height="4" rx="1" fill="#d00000"/></svg><span>Running<span class="th">Result</span></span></a><div class="brand"><i class="ld"></i>Live<span class="bl">&nbsp;Results</span></div><div class="pt"><span class="ptt">In partnership with</span><img src="assets/ohrh-logo.png" alt="Ohio Running Hub"></div></div></div>
 <div class="title"><h1>Every meet.<br class="mbr"> Every split. <em>Live.</em></h1><div class="st">Ohio cross country results. Every race. Every team. As they happen.</div><a class="psl" href="postseason/"><b>NEW</b>Road to State · Postseason tracker →</a><div class="sub" id="sub"></div></div>
 <div class="fw"><div class="dw"><div class="dt" id="days" role="tablist" aria-label="Day"></div></div><div class="f"><div class="qw"><input id="q" type="search" placeholder="Search meets, teams, runners…" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="sg" aria-autocomplete="list" aria-label="Search meets"><ul class="sg" id="sg" role="listbox"></ul></div><select id="d" hidden></select><select id="lv"><option value="">All levels</option><option value="hs">HS</option><option value="ms">MS/JH</option></select>
 <select id="tm"></select><select id="st"><option value="">Any status</option><option>live</option><option>partial</option><option>pending</option><option>final</option><option value="listed">scheduled</option><option>no link</option></select></div></div>
 <div class="jw"><select id="jm" aria-label="Jump to a meet"></select></div>
 <div class="tpn" id="tp" hidden></div>
-<div class="fvp" id="fvp" hidden></div><div class="ctl"><div class="cnt2" id="cnt"></div><button class="cb fvb" id="fvb" aria-pressed="false" onclick="favToggleView()">★ Favorites</button><button class="cb" id="ea">Expand all</button><button class="cb" id="ca">Collapse all</button></div>
+<div class="fvp" id="fvp" hidden></div><div class="ctl"><div class="cnt2" id="cnt"></div><button class="cb fvb" id="fvb" aria-pressed="false" onclick="favToggleView()">★ Favorites</button><button class="cb" id="ca">Collapse all</button></div>
 <main id="out"></main>
 <button id="top" aria-label="Back to top">↑ Top</button>
 <footer><div class="ft"><span class="h"><a href="https://runningresult.com/" target="_blank" rel="noopener">Running<span>Result</span></a></span><span class="n">Live timing · Athletic.net · MileSplit · Timers</span><span class="tg">RunningResult · Every meet. Every split. Every athlete.</span></div></footer>
@@ -454,7 +454,7 @@ else if(e.key=='Escape'){if(open)sgClose();else $('q').value='',r()}
 else if(e.key=='Enter'){e.preventDefault();const q=$('q').value;let t=open&&AI>=0?SG[AI]:null;if(!t){const f=M.map((m,i)=>[i,m]).filter(([i,m])=>qm(m,q));t=f[0]?{k:'m',i:f[0][0]}:(tmatch(q)[0]!=null?{k:'t',i:tmatch(q)[0]}:null)}if(t)t.k=='d'?goD(t.i):t.k=='a'?goA(t.i):t.k=='t'?goT(t.i):go(t.i)}});
 $('sg').addEventListener('mousedown',e=>{const li=e.target.closest('li[data-i]');if(li){e.preventDefault();li.dataset.k=='d'?goD(+li.dataset.i):li.dataset.k=='a'?goA(+li.dataset.i):li.dataset.k=='t'?goT(+li.dataset.i):go(+li.dataset.i)}});
 document.addEventListener('click',e=>{if(!e.target.closest('.qw'))sgClose()});
-$('ea').onclick=()=>allSet(true);$('ca').onclick=()=>allSet(false);
+$('ca').onclick=()=>allSet(false);
 $('top').onclick=()=>scrollTo({top:0,behavior:'smooth'});
 addEventListener('scroll',()=>$('top').classList.toggle('show',scrollY>500),{passive:true});addEventListener('resize',fh);
 ['q','d','lv','tm','st'].forEach(i=>$(i).addEventListener('input',()=>r()));r();
