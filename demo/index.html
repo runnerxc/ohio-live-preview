@@ -3,7 +3,7 @@
 <meta name="description" content="Live race results from every meet in Ohio — every meet, every split, every athlete. Running Result: the world's most advanced running database.">
 <meta name="theme-color" content="#0a0a0a"><link rel="canonical" href="https://runningresult.com/">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Running Result"><meta property="og:title" content="Ohio Live Cross Country Results — RunningResult"><meta property="og:description" content="Every meet. Every split. Every athlete. Live Ohio results in one place."><meta property="og:url" content="https://runningresult.com/"><meta property="og:image" content="https://runningresult.com/og-image.svg"><meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="assets/favicon.svg">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="manifest" href="manifest.webmanifest"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="RR Live"><link rel="apple-touch-icon" href="pwa/apple-touch-icon.png" sizes="180x180">
 <style>
 @font-face{font-family:Inter;src:url(assets/fonts/Inter.ttf);font-weight:100 900}
 @font-face{font-family:"Inter Tight";src:url(assets/fonts/InterTight.ttf);font-weight:100 900}
@@ -323,6 +323,14 @@ h2{font:700 12px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:
 .tph .fav{width:40px;height:40px;margin-right:6px}
 .fvi .nt a{color:#f5f5f5;text-decoration:underline;text-decoration-color:#d00000;cursor:pointer;margin-right:12px;white-space:nowrap}
 @media(max-width:600px){.ctl .cb{padding:0 10px;font-size:11.5px}}
+
+.ipb{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:30;max-width:480px;margin:0 auto;display:flex;align-items:center;gap:10px;background:#111;border:1px solid #484848;border-left:3px solid #d00000;border-radius:5px;padding:10px 10px 10px 12px;box-shadow:0 10px 30px #000c;font:500 13px/1.35 Inter,sans-serif;color:#f5f5f5}
+.ipb[hidden]{display:none}.ipb img{width:36px;height:36px;border-radius:8px;flex:none}.ipb .tx{flex:1;min-width:0}.ipb .tx b{display:block;font-weight:700}.ipb .tx small{color:#a5a5a5;font-size:12px}
+.ipb .go{flex:none;min-height:40px;padding:0 14px;background:#d00000;border:0;border-radius:4px;color:#fff;font:700 13px Inter,sans-serif;cursor:pointer}
+.ipb .x{flex:none;width:40px;height:40px;background:transparent;border:1px solid #303030;border-radius:4px;color:#a5a5a5;font:600 16px Inter,sans-serif;cursor:pointer}
+.ipb .shr{display:inline-block;width:14px;height:14px;vertical-align:-2px}
+body.ipbon #top{bottom:84px}
+@media all and (display-mode:standalone){.ipb{display:none!important}}
 </style></head><body>
 <div class="top"><div class="hd"><a class="wm" href="https://runningresult.com/" aria-label="RunningResult home"><svg viewBox="0 0 22 18" aria-hidden="true"><rect y="0" width="22" height="4" rx="1" fill="#f5f5f5"/><rect y="7" width="22" height="4" rx="1" fill="#f5f5f5"/><rect y="14" width="22" height="4" rx="1" fill="#d00000"/></svg><span>Running<span class="th">Result</span></span></a><div class="brand"><i class="ld"></i>Live<span class="bl">&nbsp;Results</span></div><div class="pt"><span class="ptt">In partnership with</span><img src="assets/ohrh-logo.png" alt="Ohio Running Hub"></div></div></div>
 <div class="title"><h1>Every meet.<br class="mbr"> Every split. <em>Live.</em></h1><div class="st">Ohio cross country results. Every race. Every team. As they happen.</div><a class="psl" href="postseason/"><b>NEW</b>Road to State · Postseason tracker →</a><div class="sub" id="sub"></div></div>
@@ -498,7 +506,7 @@ h+='<div class="aqn">Runner search covers meets with a Results Hub page. Rosters
 window.goA=goA;window.clrA=clrA;window.goAD=goAD;
 $('q').addEventListener('input',()=>{if(nz($('q').value).length>=2&&aNeed($('q').value).some(u=>!ADL[u]))aLoad().then(()=>{if(document.activeElement==$('q')&&nz($('q').value).length>=3)sgOpen()})});
 
-var ARCI={"d":{"2026-10-16":1,"2026-10-17":70,"2026-10-18":1,"2026-10-19":1,"2026-10-20":2},"sh":["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]};
+var ARCI={"d":{"2026-10-16":1,"2026-10-17":70,"2026-10-18":1,"2026-10-19":1,"2026-10-20":2,"2026-10-21":1},"sh":["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]};
 var ARCD={},ARCP={},DMS=null,DMP=null,CALM=null;
 const CALI='<svg viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="4" width="15" height="13" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M2.5 8h15M6.5 2.5v3M13.5 2.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><rect x="5.5" y="10.5" width="3" height="3" rx=".5" fill="#d00000"/></svg>';
 const isArc=d=>!!(ARCI.d&&ARCI.d[d])&&!DAYS().includes(d);
@@ -578,4 +586,18 @@ document.addEventListener('click',e=>{const b=e.target.closest('.fav');if(!b)ret
 addEventListener('storage',e=>{if(e.key==FK)r()});
 if(favRunners().length)setTimeout(favLoadRunners,1500);
 r();
+
+(function(){if(!('serviceWorker' in navigator)||location.protocol=='file:')return;
+addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+const DK='rr_pwa_dismissed',sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone===true;let ev=null;
+const off=()=>{try{return!!localStorage.getItem(DK)}catch(e){return false}};
+function bar(html,btn){if(sa||off()||document.getElementById('ipb'))return;document.body.insertAdjacentHTML('beforeend','<div class="ipb" id="ipb" role="dialog" aria-label="Install app"><img src="pwa/icon-192.png" alt=""><div class="tx">'+html+'</div>'+(btn?'<button class="go" id="ipgo" type="button">Install</button>':'')+'<button class="x" id="ipx" type="button" aria-label="Dismiss">✕</button></div>');document.body.classList.add('ipbon');
+document.getElementById('ipx').onclick=()=>{try{localStorage.setItem(DK,String(Date.now()))}catch(e){}hide()};
+if(btn)document.getElementById('ipgo').onclick=async()=>{if(!ev)return;ev.prompt();const c=await ev.userChoice.catch(()=>({}));ev=null;if(c&&c.outcome=='dismissed'){try{localStorage.setItem(DK,String(Date.now()))}catch(e){}}hide()}}
+function hide(){const b=document.getElementById('ipb');if(b)b.remove();document.body.classList.remove('ipbon')}
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();ev=e;setTimeout(()=>bar('<b>Install Running Result Live</b><small>Open live results from your home screen.</small>',true),2500)});
+addEventListener('appinstalled',()=>{try{localStorage.setItem(DK,'installed')}catch(e){}hide()});
+const ua=navigator.userAgent,ios=/iphone|ipad|ipod/i.test(ua)||(navigator.platform=='MacIntel'&&navigator.maxTouchPoints>1),safari=/safari/i.test(ua)&&!/crios|fxios|edgios|gsa\//i.test(ua);
+if(ios&&safari&&!sa)setTimeout(()=>bar('<b>Add Running Result Live to your Home Screen</b><small>Tap <svg class="shr" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M8 10V1.5M5 4.5l3-3 3 3M3.5 7v7h9V7"/></svg> Share, then “Add to Home Screen”.</small>',false),3000);
+})();
 </script></body></html>
