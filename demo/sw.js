@@ -1,7 +1,7 @@
 /* Running Result Live service worker. Scope = the folder this file is served from (never the live site's path).
    Shell (fonts, logo, icons) cache-first; the hub page and ALL data (meets.json, days/*.json, athletes*, tags, postseason,
    Results Hub pages + data.json) network-first, cache only as an offline fallback. Old caches of this scope are deleted on activate. */
-const V='1-c1a2f2fd',P='rr-'+self.registration.scope+'|',SHELL=P+'shell-'+V,DATA=P+'data-'+V,MAXDATA=40;
+const V='2-572562df',P='rr-'+self.registration.scope+'|',SHELL=P+'shell-'+V,DATA=P+'data-'+V,MAXDATA=40;
 const PRE=['./','assets/fonts/Inter.ttf','assets/fonts/JetBrainsMono.ttf','assets/fonts/InstrumentSerif-Regular.ttf','assets/fonts/InstrumentSerif-Italic.ttf','assets/ohrh-logo.png','assets/favicon.svg','pwa/icon-192.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(SHELL).then(c=>c.addAll(PRE)).catch(()=>{}).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith(P)&&k!==SHELL&&k!==DATA).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
